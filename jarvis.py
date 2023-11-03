@@ -12,19 +12,19 @@ def talk(text):
 
 
 def take_command():
-    f = open("~/jarvis_llama/mic.txt", "w")
+    f = open("mic.txt", "w")
     try:
         with sr.Microphone() as source:
             print('listening...')
             voice = listener.listen(source)
             command = listener.recognize_google(voice)
             if 'Jarvis' in command:
-                subprocess.run(["~/jarvis_llama/piper/install/confirm.sh"],shell=True)
+                subprocess.run(["~/jarvis_llama/confirm.sh"],shell=True)
                 command = command.replace('Jarvis', '')
                 print(command)
                 f.write(command)
             else:
-                subprocess.run(["~/jarvis_llama/piper/install/yousaidsomething.sh"],shell=True)
+                subprocess.run(["~/jarvis_llama/yousaidsomething.sh"],shell=True)
         f.close
     except:
         pass
@@ -32,13 +32,13 @@ def take_command():
 
 def run_jarvis():
     take_command()
-    if os.stat("~/jarvis_llama/mic.txt").st_size == 0:
+    if os.stat("mic.txt").st_size == 0:
         print('request is empty')
     else:
         print('request is not empty')
         #talk("~/jarvis_llama/mic.txt")
         subprocess.run(["~/jarvis_llama/runtest.sh"],shell=True) 
-        subprocess.run(["~/jarvis_llama/piper/install/talk.sh"],shell=True) 
+        subprocess.run(["~/jarvis_llama/talk.sh"],shell=True) 
         #talk("~/jarvis_llama/out.txt") 
 
 
